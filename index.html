@@ -21,6 +21,25 @@
     <script type='text/javascript'>
 		function initEmbeddedMessaging() {
 			try {
+	            window.addEventListener("onEmbeddedMessagingReady", e => {
+	              embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+	                // List the pre-chat field names with the value and whether
+	                // it's editable in the pre-chat form.
+	                "_firstName": {
+	                  "value": "Yeison",
+	                  "isEditableByEndUser": false
+	                },
+	                "_lastName": {
+	                  "value": "Naranjo",
+	                  "isEditableByEndUser": false
+	                },
+	                "_email": {
+	                  "value": "yeison.naranjo@perficient.com",
+	                  "isEditableByEndUser": false
+	                }
+	              });
+	            });
+				
 				embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
 				embeddedservice_bootstrap.init(
