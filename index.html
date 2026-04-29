@@ -3,60 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-	<title>Prueba Agentforce Local</title>
+    <title>Prueba Agentforce & Web-to-Case</title>
     <style>
         body { 
             background-color: #f4f4f4; 
-            font-family: Arial, sans-serif; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             display: flex; 
+            flex-direction: column;
             justify-content: center; 
             align-items: center; 
-            height: 100vh; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #004587;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Importante para el padding */
+        }
+        form textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .submit-btn {
+            background-color: #0176d3;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .submit-btn:hover {
+            background-color: #015ba1;
         }
     </style>
 </head>
 <body>
-    <h1>Bienvenido a la prueba de Puntos Colombia</h1>
+
+    <div class="container">
+        <h1>Soporte Puntos Colombia</h1>
+        
+        <form action="https://spins--uat.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DTI000006fFIz" method="POST">
+            <input type="hidden" name="orgid" value="00DTI000006fFIz">
+            <input type="hidden" name="retURL" value="https://yeisonnaranjo-ka.github.io/Test-Chat/">
+
+            <label for="name">Nombre de Contacto</label>
+            <input id="name" maxlength="80" name="name" size="20" type="text" required />
+
+            <label for="email">Email</label>
+            <input id="email" maxlength="80" name="email" size="20" type="email" required />
+
+            <label for="subject">Asunto</label>
+            <input id="subject" maxlength="80" name="subject" size="20" type="text" required />
+
+            <label for="description">Descripción</label>
+            <textarea name="description" required></textarea>
+
+            <label for="phone">Teléfono</label>
+            <input id="phone" maxlength="40" name="phone" size="20" type="text" />
+
+            <input type="submit" name="submit" value="Enviar Caso" class="submit-btn">
+        </form>
+    </div>
 
     <script type='text/javascript'>
-		function initEmbeddedMessaging() {
-			try {
-	            window.addEventListener("onEmbeddedMessagingReady", e => {
-	              embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
-	                // List the pre-chat field names with the value and whether
-	                // it's editable in the pre-chat form.
-	                "_firstName": {
-	                  "value": "Yeison",
-	                  "isEditableByEndUser": false
-	                },
-	                "_lastName": {
-	                  "value": "Naranjo",
-	                  "isEditableByEndUser": false
-	                },
-	                "_email": {
-	                  "value": "yeison.naranjo@perficient.com",
-	                  "isEditableByEndUser": false
-	                }
-	              });
+        function initEmbeddedMessaging() {
+            try {
+                window.addEventListener("onEmbeddedMessagingReady", e => {
+                    // Configuración de campos Pre-chat para Yeison
+                    embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+                        "_firstName": {
+                            "value": "Yeison",
+                            "isEditableByEndUser": false
+                        },
+                        "_lastName": {
+                            "value": "Naranjo",
+                            "isEditableByEndUser": false
+                        },
+                        "_email": {
+                            "value": "yeison.naranjo@perficient.com",
+                            "isEditableByEndUser": false
+                        }
+                    });
 
-				  embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
-	            });
-				
-				embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+                    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
+                });
+                
+                embeddedservice_bootstrap.settings.language = 'en_US'; 
 
-				embeddedservice_bootstrap.init(
-					'00DTI000006fFIz',
-					'Spins_Messaging_Settings',
-					'https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114',
-					{
-						scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com'
-					}
-				);
-			} catch (err) {
-				console.error('Error loading Embedded Messaging: ', err);
-			}
-		};
-	</script>
-	<script type='text/javascript' src='https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+                embeddedservice_bootstrap.init(
+                    '00DTI000006fFIz',
+                    'Spins_Messaging_Settings',
+                    'https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114',
+                    {
+                        scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        };
+    </script>
+    <script type='text/javascript' src='https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
 </body>
 </html>
