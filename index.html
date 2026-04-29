@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>Prueba Agentforce & Web-to-Case</title>
+    <title>Agentforce Local Test</title>
     <style>
         body { 
             background-color: #f4f4f4; 
@@ -42,7 +42,7 @@
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box; /* Importante para el padding */
+            box-sizing: border-box;
         }
         form textarea {
             height: 80px;
@@ -67,29 +67,27 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Soporte Puntos Colombia</h1>
-        
+    <div class="container">        
         <form action="https://spins--uat.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DTI000006fFIz" method="POST">
             <input type="hidden" name="orgid" value="00DTI000006fFIz">
             <input type="hidden" name="retURL" value="https://yeisonnaranjo-ka.github.io/Test-Chat/">
 
-            <label for="name">Nombre de Contacto</label>
+            <label for="name">Contact Name</label>
             <input id="name" maxlength="80" name="name" size="20" type="text" required />
 
             <label for="email">Email</label>
             <input id="email" maxlength="80" name="email" size="20" type="email" required />
 
-            <label for="subject">Asunto</label>
+            <label for="subject">Subject</label>
             <input id="subject" maxlength="80" name="subject" size="20" type="text" required />
 
-            <label for="description">Descripción</label>
+            <label for="description">Description</label>
             <textarea name="description" required></textarea>
 
-            <label for="phone">Teléfono</label>
+            <label for="phone">Phone</label>
             <input id="phone" maxlength="40" name="phone" size="20" type="text" />
 
-            <input type="submit" name="submit" value="Enviar Caso" class="submit-btn">
+            <input type="submit" name="submit" value="Submit Case" class="submit-btn">
         </form>
     </div>
 
@@ -97,7 +95,7 @@
         function initEmbeddedMessaging() {
             try {
                 window.addEventListener("onEmbeddedMessagingReady", e => {
-                    // Configuración de campos Pre-chat para Yeison
+                    // Pre-chat configuration for Yeison
                     embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
                         "_firstName": {
                             "value": "Yeison",
@@ -116,6 +114,7 @@
                     embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
                 });
                 
+                // Force language to English
                 embeddedservice_bootstrap.settings.language = 'en_US'; 
 
                 embeddedservice_bootstrap.init(
