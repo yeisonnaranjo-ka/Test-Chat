@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Agentforce Local Test</title>
+
+    <!-- Salesforce requirement -->
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
     <style>
         body { 
             background-color: #f4f4f4; 
@@ -22,7 +26,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
         }
         h1 {
             color: #004587;
@@ -36,7 +40,7 @@
             font-weight: bold;
             font-size: 14px;
         }
-        form input, form textarea {
+        form input, form textarea, form select {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
@@ -44,7 +48,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        form textarea {
+        textarea {
             height: 80px;
             resize: vertical;
         }
@@ -65,72 +69,150 @@
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">        
-        <form action="https://spins--uat.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DTI000006fFIz" method="POST">
-            <input type="hidden" name="orgid" value="00DTI000006fFIz">
-            <input type=hidden name="retURL" value="https://yeisonnaranjo-ka.github.io/Test-ThankYou/">
+<div class="container">        
+    <form action="https://spins--uat.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DTI000006fFIz" method="POST">
+        
+        <input type="hidden" name="orgid" value="00DTI000006fFIz">
+        <input type="hidden" name="retURL" value="https://yeisonnaranjo-ka.github.io/Test-ThankYou/">
+        <input type="hidden" id="external" name="external" value="1" />
 
-            <label for="name">Contact Name</label>
-            <input id="name" maxlength="80" name="name" size="20" type="text" required />
+        <h1>Submit a Case</h1>
 
-            <label for="email">Email</label>
-            <input id="email" maxlength="80" name="email" size="20" type="email" required />
+        <label for="name">Contact Name</label>
+        <input id="name" name="name" type="text" maxlength="80" required>
 
-            <label for="subject">Subject</label>
-            <input id="subject" maxlength="80" name="subject" size="20" type="text" required />
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" maxlength="80" required>
 
-            <label for="description">Description</label>
-            <textarea name="description" required></textarea>
+        <label for="company">Company</label>
+        <input id="company" name="company" type="text" maxlength="80">
 
-            <label for="phone">Phone</label>
-            <input id="phone" maxlength="40" name="phone" size="20" type="text" />
+        <label for="00N3p000004J4c9">Product</label>
+        <select id="00N3p000004J4c9" name="00N3p000004J4c9">
+            <option value="">--None--</option>
+            <option value="PowerTabs">PowerTabs</option>
+            <option value="SATORI">SATORI</option>
+            <option value="SPINS Scorecards">SPINS Scorecards</option>
+            <option value="AttLab">AttLab</option>
+            <option value="TriLens Panel">TriLens Panel</option>
+            <option value="Brand Insights Suite">Brand Insights Suite</option>
+        </select>
 
-            <input type="submit" name="submit" value="Submit Case" class="submit-btn">
-        </form>
-    </div>
+        <label for="reason">Case Reason</label>
+        <select id="reason" name="reason" onchange="handleReasonChange(this.value)">
+            <option value="">--None--</option>
+            <option value="Channel/Geography Questions">Channel/Geography Questions</option>
+            <option value="Data Discrepancy Question">Data Discrepancy Question</option>
+            <option value="Product Coding Question">Product Coding Question</option>
+            <option value="Product Coding Error">Product Coding Error</option>
+            <option value="SATORI Navigation">SATORI Navigation</option>
+            <option value="Measures Questions">Measures Questions</option>
+            <option value="User Credentials">User Credentials</option>
+            <option value="Subscription Set-up">Subscription Set-up</option>
+            <option value="Training Request">Training Request</option>
+            <option value="SATORI Technical Issue">SATORI Technical Issue</option>
+            <option value="Service Outage">Service Outage</option>
+        </select>
 
-    <script type='text/javascript'>
-        function initEmbeddedMessaging() {
-            try {
-                window.addEventListener("onEmbeddedMessagingReady", e => {
-                    // Pre-chat configuration for Yeison
-                    embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
-                        "_firstName": {
-                            "value": "Yeison",
-                            "isEditableByEndUser": false
-                        },
-                        "_lastName": {
-                            "value": "Naranjo",
-                            "isEditableByEndUser": false
-                        },
-                        "_email": {
-                            "value": "yeison.naranjo@perficient.com",
-                            "isEditableByEndUser": false
-                        }
-                    });
+        <div id="ddq-wrapper" style="display:none;">
+            <label>Data Discrepancy Question</label>
+            <select id="00NTI000004Yids" name="00NTI000004Yids">
+                <option value="">--None--</option>
+                <option value="UPC(s)">UPC(s)</option>
+                <option value="Category/Subcategory">Category/Subcategory</option>
+                <option value="Geography">Geography</option>
+                <option value="Time frame">Time frame</option>
+                <option value="Measure(s)">Measure(s)</option>
+            </select>
+        </div>
 
-                    embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
-                });
-                
-                // Force language to English
-                embeddedservice_bootstrap.settings.language = 'en_US'; 
+        <div id="pce-wrapper" style="display:none;">
+            <label>Product Coding Error</label>
+            <select id="00NTI000004YjDJ" name="00NTI000004YjDJ">
+                <option value="">--None--</option>
+                <option value="UPC(s)">UPC(s)</option>
+                <option value="Current Coding">Current Coding</option>
+                <option value="Expected Coding">Expected Coding</option>
+            </select>
+        </div>
 
-                embeddedservice_bootstrap.init(
-                    '00DTI000006fFIz',
-                    'Spins_Messaging_Settings',
-                    'https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114',
-                    {
-                        scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com'
-                    }
-                );
-            } catch (err) {
-                console.error('Error loading Embedded Messaging: ', err);
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" maxlength="80" required>
+
+        <label for="00NTI000004TY0n">Case Summary</label>
+        <textarea id="00NTI000004TY0n" name="00NTI000004TY0n" rows="3" required></textarea>
+
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="text" maxlength="40">
+
+        <input type="submit" name="submit" value="Submit Case" class="submit-btn">
+    </form>
+</div>
+
+<script>
+function handleReasonChange(value) {
+  var ddq = document.getElementById('ddq-wrapper');
+  var pce = document.getElementById('pce-wrapper');
+
+  if (value === 'Data Discrepancy Question') {
+    ddq.style.display = 'block';
+    pce.style.display = 'none';
+    document.getElementById('00NTI000004YjDJ').value = '';
+  } else if (value === 'Product Coding Error') {
+    pce.style.display = 'block';
+    ddq.style.display = 'none';
+    document.getElementById('00NTI000004Yids').value = '';
+  } else {
+    ddq.style.display = 'none';
+    pce.style.display = 'none';
+    document.getElementById('00NTI000004Yids').value = '';
+    document.getElementById('00NTI000004YjDJ').value = '';
+  }
+}
+</script>
+
+<script type='text/javascript'>
+function initEmbeddedMessaging() {
+    try {
+        window.addEventListener("onEmbeddedMessagingReady", e => {
+            embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+                "_firstName": {
+                    "value": "Yeison",
+                    "isEditableByEndUser": false
+                },
+                "_lastName": {
+                    "value": "Naranjo",
+                    "isEditableByEndUser": false
+                },
+                "_email": {
+                    "value": "yeison.naranjo@perficient.com",
+                    "isEditableByEndUser": false
+                }
+            });
+
+            embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
+        });
+
+        embeddedservice_bootstrap.settings.language = 'en_US'; 
+
+        embeddedservice_bootstrap.init(
+            '00DTI000006fFIz',
+            'Spins_Messaging_Settings',
+            'https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114',
+            {
+                scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com'
             }
-        };
-    </script>
-    <script type='text/javascript' src='https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+        );
+    } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+    }
+};
+</script>
+
+<script type='text/javascript' src='https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
 </html>
