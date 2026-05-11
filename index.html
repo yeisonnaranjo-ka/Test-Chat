@@ -142,7 +142,6 @@
         const ddq = document.getElementById('ddq-wrapper');
         const pce = document.getElementById('pce-wrapper');
         
-        // Helper para limpiar campos
         const clearFields = (ids) => ids.forEach(id => {
             const el = document.getElementById(id);
             if(el) el.value = '';
@@ -168,17 +167,15 @@
 
     function initEmbeddedMessaging() {
         try {
-            // Escuchar cuando el componente esté listo para recibir datos de Pre-chat
             window.addEventListener("onEmbeddedMessagingReady", () => {
                 console.log("Embedded Messaging is ready!");
                 
                 embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
                     "_firstName": { "value": "Yeison", "isEditableByEndUser": false },
                     "_lastName": { "value": "Naranjo", "isEditableByEndUser": false },
-                    "_email": { "value": "yeison.naranjo@perficient.com", "isEditableByEndUser": false }
+                    "_email": { "value": "yeison.naranjo@perficient.com", "isEditableByEndUser": false },
+                    "CustomerType": { "value": "Brand", "isEditableByEndUser": true }
                 });
-
-                embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
             });
 
             embeddedservice_bootstrap.settings.language = 'en_US'; 
