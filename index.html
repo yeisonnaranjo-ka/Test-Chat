@@ -137,79 +137,68 @@
         </form>
 </div>
 
-<script>
-function handleReasonChange(value) {
-  var ddq = document.getElementById('ddq-wrapper');
-  var pce = document.getElementById('pce-wrapper');
-
-  if (value === 'Data Discrepancy Question' || value === 'Data Integrity Issue') {
-    ddq.style.display = 'block';
-    pce.style.display = 'none';
-    document.getElementById('00NTI000004ZkP3').value = '';
-    document.getElementById('00NTI000004ZkQf').value = '';
-    document.getElementById('00NTI000004ZkSH').value = '';
-  } else if (value === 'Product Coding Error') {
-    pce.style.display = 'block';
-    ddq.style.display = 'none';
-    document.getElementById('00NTI000004ZkFN').value = '';
-    document.getElementById('00NTI000004ZkIb').value = '';
-    document.getElementById('00NTI000004ZkKD').value = '';
-    document.getElementById('00NTI000004ZkLp').value = '';
-    document.getElementById('00NTI000004ZkNR').value = '';
-  } else {
-    ddq.style.display = 'none';
-    pce.style.display = 'none';
-    document.getElementById('00NTI000004ZkP3').value = '';
-    document.getElementById('00NTI000004ZkQf').value = '';
-    document.getElementById('00NTI000004ZkSH').value = '';
-    document.getElementById('00NTI000004ZkFN').value = '';
-    document.getElementById('00NTI000004ZkIb').value = '';
-    document.getElementById('00NTI000004ZkKD').value = '';
-    document.getElementById('00NTI000004ZkLp').value = '';
-    document.getElementById('00NTI000004ZkNR').value = '';
-  }
-}
-</script>
-
 <script type='text/javascript'>
-function initEmbeddedMessaging() {
-    try {
-        window.addEventListener("onEmbeddedMessagingReady", e => {
-            embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
-                "_firstName": {
-                    "value": "Yeison",
-                    "isEditableByEndUser": false
-                },
-                "_lastName": {
-                    "value": "Naranjo",
-                    "isEditableByEndUser": false
-                },
-                "_email": {
-                    "value": "yeison.naranjo@perficient.com",
-                    "isEditableByEndUser": false
-                }
-            });
-
-            embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
+    function handleReasonChange(value) {
+        const ddq = document.getElementById('ddq-wrapper');
+        const pce = document.getElementById('pce-wrapper');
+        
+        // Helper para limpiar campos
+        const clearFields = (ids) => ids.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.value = '';
         });
 
-        embeddedservice_bootstrap.settings.language = 'en_US'; 
+        const ddqFields = ['00NTI000004ZkFN', '00NTI000004ZkIb', '00NTI000004ZkKD', '00NTI000004ZkLp', '00NTI000004ZkNR'];
+        const pceFields = ['00NTI000004ZkP3', '00NTI000004ZkQf', '00NTI000004ZkSH'];
 
-        embeddedservice_bootstrap.init(
-            '00DTI000006fFIz',
-            'Spins_Messaging_Settings',
-            'https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114',
-            {
-                scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com'
-            }
-        );
-    } catch (err) {
-        console.error('Error loading Embedded Messaging: ', err);
+        if (value === 'Data Discrepancy Question' || value === 'Data Integrity Issue') {
+            ddq.style.display = 'block';
+            pce.style.display = 'none';
+            clearFields(pceFields);
+        } else if (value === 'Product Coding Error') {
+            pce.style.display = 'block';
+            ddq.style.display = 'none';
+            clearFields(ddqFields);
+        } else {
+            ddq.style.display = 'none';
+            pce.style.display = 'none';
+            clearFields([...ddqFields, ...pceFields]);
+        }
     }
-};
+
+    function initEmbeddedMessaging() {
+        try {
+            // Escuchar cuando el componente esté listo para recibir datos de Pre-chat
+            window.addEventListener("onEmbeddedMessagingReady", () => {
+                console.log("Embedded Messaging is ready!");
+                
+                embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+                    "_firstName": { "value": "Yeison", "isEditableByEndUser": false },
+                    "_lastName": { "value": "Naranjo", "isEditableByEndUser": false },
+                    "_email": { "value": "yeison.naranjo@perficient.com", "isEditableByEndUser": false }
+                });
+
+                embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({"CustomerType" : "Brand"});
+            });
+
+            embeddedservice_bootstrap.settings.language = 'en_US'; 
+
+            embeddedservice_bootstrap.init(
+                '00DTI000006fFIz',
+                'Spins_Messaging_Settings',
+                'https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114',
+                { scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com' }
+            );
+        } catch (err) {
+            console.error('Error loading Embedded Messaging: ', err);
+        }
+    };
 </script>
 
-<script type='text/javascript' src='https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+<script type='text/javascript' 
+        src='https://spins--uat.sandbox.my.site.com/ESWSpinsMessagingSettin1776964204114/assets/js/bootstrap.min.js' 
+        onload='initEmbeddedMessaging()'>
+</script>
 
 </body>
 </html>
