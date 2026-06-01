@@ -70,101 +70,10 @@
     </style>
 </head>
 
-<body>
-
-<div class="container">        
-    <form action="https://spins--uat.sandbox.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DTI000006fFIz" method="POST">
-        
-        <input type="hidden" name="orgid" value="00DTI000006fFIz">
-        <input type="hidden" name="retURL" value="https://yeisonnaranjo-ka.github.io/Test-ThankYou/">
-        <input type="hidden" id="external" name="external" value="1" />
-
-        <label for="name">Contact Name</label><input  id="name" maxlength="80" name="name" size="20" type="text" /><br>
-
-        <label for="email">Email</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
-        
-        <label for="company">Company</label><input  id="company" maxlength="80" name="company" size="20" type="text" /><br>
-        
-        Product:<select  id="00N3p000004J4c9" name="00N3p000004J4c9" title="Product">
-        <option value="">--None--</option>
-        <option value="PowerTabs">PowerTabs</option>
-        <option value="SATORI">SATORI</option>
-        <option value="SPINS Scorecards">SPINS Scorecards</option>
-        <option value="AttLab">AttLab</option>
-        <option value="TriLens Panel">TriLens Panel</option>
-        <option value="Brand Insights Suite">Brand Insights Suite</option>
-        </select><br>
-        
-        <label for="reason">Case Reason</label>
-        <select id="reason" name="reason" onchange="handleReasonChange(this.value)">
-        <option value="">--None--</option>
-        <option value="Channel/Geography Questions">Channel/Geography Questions</option>
-        <option value="Data Integrity Issue">Data Integrity Issue</option>
-        <option value="Data Discrepancy Question">Data Discrepancy Question</option>
-        <option value="Product Coding Question">Product Coding Question</option>
-        <option value="Product Coding Error">Product Coding Error</option>
-        <option value="SATORI Navigation">SATORI Navigation</option>
-        <option value="Measures Questions">Measures Questions</option>
-        <option value="User Credentials">User Credentials</option>
-        <option value="Subscription Set-up">Subscription Set-up</option>
-        <option value="Training Request">Training Request</option>
-        <option value="SATORI Technical Issue">SATORI Technical Issue</option>
-        <option value="Service Outage">Service Outage</option>
-        </select><br>
-        
-        <div id="ddq-wrapper" style="display:none;">
-        	UPC:<textarea  id="00NTI000004ZkFN" name="00NTI000004ZkFN" rows="3" type="text" wrap="soft"></textarea><br>
-        	Category/Subcategory:<textarea  id="00NTI000004ZkIb" name="00NTI000004ZkIb" rows="3" type="text" wrap="soft"></textarea><br>
-        	Geography:<textarea  id="00NTI000004ZkKD" name="00NTI000004ZkKD" rows="3" type="text" wrap="soft"></textarea><br>
-        	Time Frame:<textarea  id="00NTI000004ZkLp" name="00NTI000004ZkLp" rows="3" type="text" wrap="soft"></textarea><br>
-        	Measures:<textarea  id="00NTI000004ZkNR" name="00NTI000004ZkNR" rows="3" type="text" wrap="soft"></textarea><br>
-        </div>
-        
-        <div id="pce-wrapper" style="display:none;">
-        	UPC’s with Error:<textarea  id="00NTI000004ZkP3" name="00NTI000004ZkP3" rows="3" type="text" wrap="soft"></textarea><br>	
-        	Current Coding Error:<textarea  id="00NTI000004ZkQf" name="00NTI000004ZkQf" rows="3" type="text" wrap="soft"></textarea><br>
-        	Expected Coding:<textarea  id="00NTI000004ZkSH" name="00NTI000004ZkSH" rows="3" type="text" wrap="soft"></textarea><br>	
-        </div>
-        
-        <label for="subject">Subject</label><input  id="subject" maxlength="80" name="subject" size="20" type="text" /><br>
-        
-        Case Summary:<textarea  id="00NTI000004TY0n" name="00NTI000004TY0n" rows="3" type="text" wrap="soft"></textarea><br>
-        
-        <input type="hidden"  id="external" name="external" value="1" /><br>
-        
-        <input type="submit" name="submit">
-        
-        </form>
-</div>
+<body>>
 
 <script type='text/javascript'>
-    function handleReasonChange(value) {
-        const ddq = document.getElementById('ddq-wrapper');
-        const pce = document.getElementById('pce-wrapper');
-        
-        const clearFields = (ids) => ids.forEach(id => {
-            const el = document.getElementById(id);
-            if(el) el.value = '';
-        });
-
-        const ddqFields = ['00NTI000004ZkFN', '00NTI000004ZkIb', '00NTI000004ZkKD', '00NTI000004ZkLp', '00NTI000004ZkNR'];
-        const pceFields = ['00NTI000004ZkP3', '00NTI000004ZkQf', '00NTI000004ZkSH'];
-
-        if (value === 'Data Discrepancy Question' || value === 'Data Integrity Issue') {
-            ddq.style.display = 'block';
-            pce.style.display = 'none';
-            clearFields(pceFields);
-        } else if (value === 'Product Coding Error') {
-            pce.style.display = 'block';
-            ddq.style.display = 'none';
-            clearFields(ddqFields);
-        } else {
-            ddq.style.display = 'none';
-            pce.style.display = 'none';
-            clearFields([...ddqFields, ...pceFields]);
-        }
-    }
-
+    
     function initEmbeddedMessaging() {
         try {
             window.addEventListener("onEmbeddedMessagingReady", () => {
