@@ -78,35 +78,37 @@ function initEmbeddedMessaging() {
     try {
         embeddedservice_bootstrap.settings.language = 'en_US'; 
 
-        window.addEventListener("onEmbeddedMessagingStateChanged", (event) => {
-            if (event.detail.state === "Prechat") {
-                console.log("Prechat form is active. Injecting fields...");
-                
+        window.addEventListener("onEmbeddedMessagingReady", () => {
+            console.log("Embedded Messaging is ready!");
+            
+            setTimeout(() => {
                 try {
+                    console.log("Attempting to inject prechat fields now...");
                     embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
                         "_firstName": "Yeison",
                         "_lastName": "Naranjo",
                         "_email": "yeison.naranjo@perficient.com",
                         "CustomerType": "Brand"
                     });
-                    console.log("Prechat fields successfully injected.");
+                    console.log("Prechat fields injection command sent.");
                 } catch (prechatError) {
-                    console.error("Error injecting prechat fields:", prechatError);
+                    console.error("Error inside ready timeout:", prechatError);
                 }
-            }
+            }, 500);
         });
 
         embeddedservice_bootstrap.init(
             '00DcX000004xoCz',
             'External_Messaging',
             'https://spins--uat.sandbox.my.site.com/ESWExternalMessaging1779744352471',
-            { scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com' }
+            { scrt2URL: 'https://spins--uat.sandbox.my-scrt.com' }
         );
 
     } catch (err) {
         console.error('Error loading Embedded Messaging: ', err);
     }
-}    
+}
+
 </script>
 
 <script type='text/javascript' 
