@@ -74,31 +74,37 @@
 
 <script type='text/javascript'>
     
-    function initEmbeddedMessaging() {
-        try {
-            window.addEventListener("onEmbeddedMessagingReady", () => {
-                console.log("Embedded Messaging is ready!");
-                /*
+function initEmbeddedMessaging() {
+    try {
+        embeddedservice_bootstrap.settings.language = 'en_US'; 
+    
+        window.addEventListener("onEmbeddedMessagingReady", () => {
+            console.log("Embedded Messaging is ready!");
+            
+            try {
                 embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
                     "_firstName": "Yeison",
                     "_lastName": "Naranjo",
                     "_email": "yeison.naranjo@perficient.com",
                     "CustomerType": "Brand"
-                });*/
-            });
-
-            embeddedservice_bootstrap.settings.language = 'en_US'; 
-
-            embeddedservice_bootstrap.init(
-                '00DcX000004xoCz',
-                'External_Messaging',
-                'https://spins--uat.sandbox.my.site.com/ESWExternalMessaging1779744352471',
-                { scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com' }
-            );
-        } catch (err) {
-            console.error('Error loading Embedded Messaging: ', err);
-        }
-    };
+                });
+                console.log("Prechat fields assigned successfully.");
+            } catch (prechatError) {
+                console.error("Error:", prechatError);
+            }
+        });
+    
+        embeddedservice_bootstrap.init(
+            '00DcX000004xoCz',
+            'External_Messaging',
+            'https://spins--uat.sandbox.my.site.com/ESWExternalMessaging1779744352471',
+            { scrt2URL: 'https://spins--uat.sandbox.my.salesforce-scrt.com' }
+        );
+    
+    } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+    }
+};
 </script>
 
 <script type='text/javascript' 
