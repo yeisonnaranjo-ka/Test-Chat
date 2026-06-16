@@ -84,10 +84,22 @@ function initEmbeddedMessaging() {
             try {
                 console.log("Attempting to inject prechat fields...");
                 embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
-                    "_firstName": "Yeison",
-                    "_lastName": "Naranjo",
-                    "_email": "yeison.naranjo@perficient.com",
-                    "CustomerType": "Brand"
+                    "_firstName": {
+                        "value": "Yeison",
+                        "isEditable": true
+                    },
+                    "_lastName": {
+                        "value": "Naranjo",
+                        "isEditable": true
+                    },
+                    "_email": {
+                        "value": "yeison.naranjo@perficient.com",
+                        "isEditable": true
+                    },
+                    "CustomerType": {
+                        "value": "Brand",
+                        "isEditable": true
+                    }
                 });
                 console.log("Prechat fields injection command sent.");
             } catch (prechatError) {
